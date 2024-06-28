@@ -11,9 +11,16 @@ const Register = () => {
     event.preventDefault();
     try {
       const response = await axios.post('/api/register', { username, password });
-      setMessage('User registered successfully!');
-      setUsername('');
-      setPassword('');
+      console.log(response);
+      if(response.data.username){
+        setMessage('User registered successfully!');
+        setUsername('');
+        setPassword('');
+      }
+      else{
+        alert(response.data.msg);
+      }
+      
     } catch (error) {
       setMessage('Error: ' + error.response.data.message);
     }

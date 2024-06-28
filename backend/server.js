@@ -28,7 +28,7 @@ app.post('/api/register', async (req,res) => {
   try{
     const userExist = await User.findOne({username});
     if(userExist){
-      res.status(400).json({msg:'user already exists'});
+      res.json({msg:'user already exists'});
     }else{
       if(password.length<8){
         res.json({msg:"Password is too short"})
@@ -36,7 +36,6 @@ app.post('/api/register', async (req,res) => {
         const userDoc = await User.create({
           username,
           password:bcrypt.hashSync(password,salt),
-          msg:"successfully registered"
         });
         const result =  await userDoc.save();
         res.json(result);
