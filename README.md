@@ -13,6 +13,7 @@ News Aggregator is a web application developed using the MERN stack (MongoDB, Ex
 
 ### Prerequisites
 - React.js
+- Express.js
 - Node.js
 - MongoDB
 - npm or yarn
