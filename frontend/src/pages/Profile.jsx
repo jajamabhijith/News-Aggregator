@@ -2,6 +2,7 @@ import React,{useContext,useEffect,useState} from 'react'
 import Nav from '../components/Nav';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import { MdOutlineSearch } from "react-icons/md";
 
 const Profile = () => {
   const [showForm, setShowForm] = useState(false);
@@ -83,55 +84,78 @@ const handleSearch = (e) => {
         <Nav handleCategoryChange={handleCategoryChange} />
       </header>
       <main>
-        <h2>Profile Page</h2>
-        <button onClick={handleAddNoteClick}>Add Note</button>
-        {showForm && (
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Title:</label>
-              <input 
-                type="text" 
-                value={title} 
-                onChange={(e) => setTitle(e.target.value)} 
-                required 
-              />
-            </div>
-            <div>
-              <label>Content:</label>
-              <textarea 
-                value={content} 
-                onChange={(e) => setContent(e.target.value)} 
-                required 
-              />
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        )}
-        {message && <p>{message}</p>}
 
-
-        <div>
-          <input
-            type="text"
-            placeholder="Search notes"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+        <div className='info'>
+          <h2>Profile Page</h2>
+          <p>User name:  {user.username}</p>
         </div>
-        <h3>My Notes</h3>
-        {filteredNotes.length === 0 ? (
-          <p>No notes found.</p>
-        ) : (
-          <ul>
-            {filteredNotes.map((note, index) => (
-              <li key={index}>
-                <h4>{note.title}</h4>
-                <p>{note.content}</p>
-                <p>Posted on: {new Date(note.time).toLocaleString()}</p>
-              </li>
-            ))}
-          </ul>
-        )}
+        
+
+        <div className='about-notes'>
+          
+          
+          <div className='my-notes'>
+            <div className='search-bar'>
+            <h3>My Notes</h3>
+              <MdOutlineSearch />
+              <input
+                type="text"
+                placeholder="Search notes"
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+            </div>
+            
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
+              <ul>
+                {filteredNotes.map((note, index) => (
+                  <div key={index} className='index'>
+                    <h3>Title</h3>
+                    <div className="title">
+                      <h4>{note.title}</h4>
+                    </div>
+                    <h3>Content</h3>
+                    <div className="content"> 
+                      <p>{note.content}</p>
+                    </div>
+                    <p>Posted on: {new Date(note.time).toLocaleString()}</p>
+                  </div>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className='add-note'>
+            <button onClick={handleAddNoteClick}>Add Note</button>
+            {showForm && (
+              <form onSubmit={handleSubmit}>
+                <div className='add-title'>
+                  <label>Title:</label>
+                  <input 
+                    type="text" 
+                    value={title} 
+                    onChange={(e) => setTitle(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <div className='add-content'>
+                  <label>Content:</label>
+                  <textarea 
+                    value={content} 
+                    onChange={(e) => setContent(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+            )}
+            {message && <p>{message}</p>}
+          </div>
+        </div>
+        
+
+        
       </main>
     </div>
   );

@@ -14,29 +14,34 @@ function Nav({ handleCategoryChange }) {
   ];
 
   return (
-    <nav>
-      <ul className="category-list">
-        <NavLink to='/'><h1>News App</h1></NavLink>
-        {categories.map((category) => (
-          <li key={category.id}>
-            <button onClick={() => handleCategoryChange(category.id)}>
-              {category.name}
-            </button>
-          </li>
-        ))}
-        {
-          Object.keys(user).length !== 0 ? 
-            <>
-              <li><NavLink to='/profile'>{user.username}</NavLink></li>
-              <NavLink to='/'><li onClick={logout}>Logout</li></NavLink>
-            </>
-          :
-            <>
-              <NavLink to='/login'><li>Login</li></NavLink>
-              <NavLink to='/register'><li>Register</li></NavLink>
-            </>
-        }
-      </ul>
+    <nav className="category-list">
+      {/* <ul className="category-list"> */}
+        <div className='nav-flex'>
+          <NavLink to='/'><h1>News App</h1></NavLink>
+          {categories.map((category) => (
+            <li key={category.id}>
+              <button onClick={() => handleCategoryChange(category.id)}>
+                {category.name}
+              </button>
+            </li>
+          ))}
+        </div>
+        <div className='nav-flex'>
+          {
+            Object.keys(user).length !== 0 ? 
+              <>
+                <NavLink to='/profile'><li>{user.username}</li></NavLink>
+                <NavLink to='/'><li onClick={logout}>Logout</li></NavLink>
+              </>
+            :
+              <>
+                <NavLink to='/login'><li>Login</li></NavLink>
+                <NavLink to='/register'><li>Register</li></NavLink>
+              </>
+          }
+        </div>
+        
+      {/* </ul> */}
     </nav>
   );
 }
